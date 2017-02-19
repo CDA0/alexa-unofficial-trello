@@ -1,2 +1,5 @@
 ListBoardsIntent list my boards
 ListBoardsIntent what boards do I have
+
+CreateBoardIntent create a board called {boardName}
+CreateBoardIntent Create a new board called {boardName}

@@ -4,12 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm run compile && cp src/package.json dist/ && cd dist && npm i --production",
+    "clean": "rm -rf dist && rm -f *.zip",
+    "compile": "./node_modules/.bin/babel src --out-dir dist",
+    "deploy": "npm run build && npm run package && ./node_modules/.bin/node-lambda deploy -a $AWS_KEY -s $AWS_SECRET -o $AWS_ROLE_ARN -r eu-west-1 -A . -e production -n TrelloSkillFunction",
+    "package": "./node_modules/.bin/node-lambda package -D dist -A . -e production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "alexa-sdk": "^1.0.7",
-    "trello": "^0.7.0"
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "node-lambda": "^0.8.13"
   }
 }
